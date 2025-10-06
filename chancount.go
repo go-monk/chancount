@@ -84,7 +84,7 @@ func newChanCounter[T any](ch <-chan T, opts ...option[T]) *chanCounter[T] {
 }
 
 func (c *chanCounter[T]) Count() <-chan T {
-	out := make(chan T)
+	out := make(chan T, cap(c.ch))
 	go func() {
 		defer close(out)
 
